@@ -1,0 +1,45 @@
+create Dockerfile.txt -> save as "Dockerfile" with no txt
+
+docker network create my-network
+
+docker network ls
+
+docker run -d -p 5432:5432 --name some-postgres --network my-network -e POSTGRES_PASSWORD=mysecretpassword postgres
+  или
+docker run -it -p 5432:5432 --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword mydb
+
+docker exec -it some-postgres bash
+
+psql -U postgres
+CREATE DATABASE mytestdb;
+\q
+psql mytestdb
+//create table listofparts
+\dt (display tables)
+select * from mytestdb;
+INSERT INTO listofparts (pnumber, pname, vendor, qty, shipped, received) VALUES ('ASC', 'BLADE', 'Umbrella', 7, '2017-12-07', '2017-12-15');
+INSERT INTO listofparts (pnumber, pname, vendor, qty, shipped, received) VALUES ('ASC', 'BLADE', 'Umbrella', 45, '2017-12-07', '2017-09-22');
+INSERT INTO listofparts (pnumber, pname, vendor, qty, shipped, received) VALUES ('XTL', 'EDGE', 'Corp', 11, '2017-09-07', CURRENT_DATE);
+INSERT INTO listofparts (pnumber, pname, vendor, qty, shipped, received) VALUES ('XTL', 'EDGE', 'Corp', 99, '2018-02-15', '2018-02-28');
+
+\q
+exit
+
+
+
+
+
+
+
+1. docker build -t dmitriy myapp
+   или
+   docker build -t mydb db
+
+2. docker run --rm -it -p 8080:8080 dmitriy
+   или
+   docker run --name mywebapp --rm -it -p 8080:8080 --network my-network dmitriy
+
+----------------------------------------
+Paths in a Dockerfile are always relative to the the context directory. The context directory is the positional argument passed to docker build (often .).
+
+If there is no ./tmp in the context directory then this is the expected behaviour.

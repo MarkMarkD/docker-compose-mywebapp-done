@@ -1,0 +1,4 @@
+FROM postgres
+MAINTAINER banashko.dv@transasia.ru
+
+COPY ./init/init.sql /docker-entrypoint-initdb.d/
